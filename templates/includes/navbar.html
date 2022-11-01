@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<!--<div class="container">  -> navbarı yukarıda ortalamak - hizalamak istersen buraya da container eklenir. -->
+      <a class="navbar-brand" href="/"> <!--href kısmı tıklandığında nereye gidileceğini gösterir "/" işareti anasayfadır localhost:5000-->
+        <img src="https://icons.veryicon.com/32/Avatar/Face%20Avatars/Male%20Face%20N2.png">
+        CK Blog
+        </a>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto"> <!--Navbarın içindeki listedeki elemanları kapsar(ul class). li class olarak teker teker buraya yazılırlar.-->
+          <!--ul classın mr-auto kısmı sola doğru liste elemanlarını (navbar içerisindeki) sola yaslar. eğer ml-auto yapılırsa sağa yaslar.-->
+          <!--Birbirinden bağımsız olabilmesi için 2 farklı ul class yapılması gerek.-->
+          <li class="nav-item active">
+            <a class="nav-link" href="/about">Hakkımızda</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/articles">Makaleler</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+
+          {% if session["logged_in"]%}
+          
+          <li class="nav-item active">
+            <a class="nav-link" href="/dashboard">Kontrol Paneli</a>
+          </li>
+          
+          <li class="nav-item active">
+            <a class="nav-link" href="/logout">Çıkış Yap</a>
+          </li>
+
+          {% else %}
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/login">Giriş Yap</a>
+          </li>
+
+          {% endif %}
+
+          
+          <li class="nav-item active">
+            <a class="nav-link" href="/register">Kayıt Olun</a>
+          </li>
+        </ul>
+      <div>
+<!--</div>-->    
+    </nav>
+
+<!--BOOTSTRAP NAV BAR BASIP BEGENDİGİMİZ NAVBARA SAHİP SİTENİN SAYFA KAYNAGINI GORUNTULEYİP ORADAN NAVBAR KISMINI KOPYALADIK.-->
+
+

@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<h3> Kontrol Paneli </h3>
+
+<small> Hoşgeldiniz {{session["username"]}} </small>
+<hr>
+
+<a href ="/addarticle" class = "btn btn-secondary">Makale Ekle</a>
+<p>
+
+{% if articles %}
+
+<table class="table table-hover">
+    <thead> <!-- Tablonun temel bileşenlerini kapsar.(DIŞ VERİLER(#,First,Last,Handle)) -->
+      <tr> <!-- <tr> -> rowu(satır) simgeler. -->
+        <th scope="col">ID</th> <!-- <th> -> column(sütun) ismi -->
+        <th scope="col">Başlık</th> <!-- Scope özelliği tablonun başlık hücreleri ile standart hücrelerini ilişkilendirmek için kullanılır. Scope özelliği tablonun sütun, satır veya satır ve sütun grupları için başlık olduğunu belirtir. -->
+        <th scope="col">Yazar</th>
+        <th scope="col">Tarih</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody> <!-- Tablonun gövdesini yani içerideki verileri kapsar. -->
+
+    <!-- Satır oluşturmak için -> <tr> </tr>
+
+         Sutun oluşturmak içinse -> <td></td> veya <th></th>
+
+         td ve th Arasındaki Fark -> <th> tablonun en üst kısmında başlıklar için kullanılırken. <td> kısmı tablonun iç kısımlarındaki elemanlar için kullanılır. -->    
+
+      {% for article in articles %}
+
+      <tr>
+        <th scope="row">{{article.id}}</th>
+        <td><a href="/article/{{article.id}}">{{article.title}}</a></td> <!-- <td> -> column(sütun) / <a> -> Link vermek için veya linke bağlamak için -->
+        <td>{{article.author}}</td>
+        <td>{{article.created_date}}</td>
+        <td><a href="/edit/{{article.id}}" class="btn btn-info">Güncelle</a></td>
+        <td><a href="/delete/{{article.id}}" class="btn btn-info">Sil</a></td>
+      </tr>
+
+      {% endfor %}
+      
+     
+     
+     
+     
+      <!-- Örnek tbody iç yapısı
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td> # Colspan özelliği sütun üzerinde kaç tane hücrenin birleştirileceğini belirtir.
+        <td>@twitter</td>
+      </tr>
+     -->
+
+
+    </tbody>
+  </table>
+
+{% else %}
+
+<div class = "alert alert-danger">Henüz bir makaleniz bulunmamaktadır.</div>
+
+{% endif %}
+
+
+{% endblock body %}

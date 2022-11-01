@@ -1,0 +1,255 @@
+<!-- 
+  
+Regular space: &nbsp;
+Two spaces gap: &ensp;
+Four spaces gap: &emsp; 
+
+Ünlem+tab düz html de gerekli olan html yazısını otomatik çıkarır.
+{{}} pythonda verilen degeri jinja template'de kullanmak için gereken kod.
+html içerisinde {{}} arasında kullanılan kodlar python kodları olarak tanımlanır.
+{% extends "html sayfası ismi" %} miras alma işlemi
+
+Miras alındıktna sonra içine kendi detailleri eklemek için block oluşturulur.
+{% block bloğun ismi %}
+{% endblock bloğun ismi veya yazmana gerek yok %}
+Başka bir html dosyasında aynı bloğun detayları değiştirilebilir.(Overwrite işlemi)
+Herhangi bir yapının örnek olarak <title><title/> arasına block koyarak başka bir hmtl sayfasında arasına koyulan bloğa overwrite ederek <title><title/> yapısı kullanmadan title kullanabilirsiniz.
+
+{% include "html sayfası konumu örnek -> (includes/navbar.html)" %} bir htmldeki detaili miras almadan başka bir html'e dahil etme 
+
+boş body bloğu açıp her html kendi kodunda doldurabilir. (Extends miras alırsa) Layoutta açılan body index html de layout extends edilerek index html de body yapısı tasarlanabilir.
+  
+    
+    
+İf else yapıları, for while yapıları,...
+
+    {% if a == 1 %}
+    {% else %}
+    {% endif %}
+    
+    {% if a == 1 %}
+    {% elif a == 2 %}
+    {% else %}
+    {% endif %}
+
+@app.route("") python kodlarında html sayfasını sürekli olarak çalıştırması için generator yapımı  altına fonksiyon yazılır ve return edilir(hangi html isteniyorsa)
+def index():
+return render_template("index.html")
+
+
+<ul></ul> etiketi sırasız bir liste(madde işaretli) tanımlar. 
+<li></li> Liste öğeleri oluşturmak için <li> etiketi kullanılır.
+
+Örnek Dongulu Kullanım
+
+Sayı
+<ul>
+{% for number in numbers %}
+    <li>{{number}}</li> 
+{% endfor %}
+</ul>
+
+Liste İçerisindeki dictionarylerin kullanımları .Id ({{listenin adı.dictionarydeki keyin adı}})
+<ul>
+    {% for article in articles %}
+    <li>Article Id: {{article.Id}}</br>Title: {{article.Title}}</br>Content: {{article.Content}}</li> 
+{% endfor %}    
+</ul>
+
+MYSQLDEN VERİLERİ ALMA CONFIGURE VE DEVAMI
+
+tüm yapıları import ettikten sonra 
+
+from flask import Flask,render_template,flash,redirect,url_for,session,logging,request
+from flask_mysqldb import MySQL
+from wtforms import Form,StringField,TextAreaField,PasswordField,validators
+from passlib.hash import sha256_crypt
+
+app = Flask(__name__) -> flask yapısı 
+
+app.config["MYSQL_HOST"] = "localhost" 
+app.config["MYSQL_USER"] ="root"
+app.config["MYSQL_PASSWORD"] =""
+app.config["MYSQL_DB"] ="ckblog"
+app.config["MYSQL_CURSORCLASS"] ="DictCursor" FOR DONGUSUYLE LISTE ICINDEKI DICTLERI PYTHONDA ALABILIYORDUK AYNI ŞEKIL MYSQLDEN ALMAK ICIN DICT YAPILI CURSOR CLASS LAZIM.
+
+DICT CURSOR -> DICTIONARY CURSOR YAPISI IMLEC GOREVI BU YAPIYI BAGLAYARAK LISTE ICERISINDE DICTIONARY YAPISI SEKLINDE DONER TUM DATABASE BILGISI.
+
+BUNLARI KULLANARAK FLASH ŞUAN VERI TABANININ NEREDE OLDUGUNU VE BILGILERINI BILIYOR ANCAK
+
+MYSQL'I KULLANMAK ICIN IMPORT EDILEN MYSQL SINIFINDAN OBJE OLUŞTURMAK GEREKIR.
+
+mysql = MySQL(app) -> app bizim uygulamayı bağladık.
+
+generator yapıları ...
+
+en altta ise flaskın sürekli çalışmasını sağlayan yapı 
+
+if __name__ == "__main__":
+    app.run(debug=True) 
+
+
+Flask WTF -> fromhelpers.html makro oluşturma (post) sitesi -> https://flask.palletsprojects.com/en/2.1.x/patterns/wtforms/
+
+_crypt hatasının çözümü import modules kaldırmak
+
+formu oluşturup çalıştırmak için macro olması gerek. (formhelpers.hmtl bizim macromuz)
+
+flash message'ları kullanabilmek için secret key gereklidir.
+kayıt olduktan sonra çıkan mesaj flash message diye geçer ve onun içinde macro yapısına benzeyen message with yapısı olması gerek.(message.html bizim message with yapısı)
+
+
+
+<ul>/<ol>/<li> YAPILARI TANIM
+
+
+Web sitelerini yaparken bazen sıralı, ardışık veriler ile işlem yaparız. Örnelğin şehirleri listeleriz, futbol ligi sıralamasını yaparız, ürünleri listeleriz.
+
+<ul> ve <ol> işte bu tür sıralamalar için kullanılan bir etiketlerdir. ul ingilizce Unordered List  yani sırasız listelemenin baş harflerinden oluşur. ol ise ordered list yani sıralı liste demektir.
+
+sırasız listeleme şu şekilde görünür:
+
+Ankara
+İstanbul
+Van
+
+Yukarıdaki listeyi oluşturmak için şu kod kullanılır.
+
+<ul>
+  <li>Ankara</li>
+  <li>İstanbul</li>
+  <li>Van</li>
+</ul>
+Sıralı listelemede bu sefer listedeki elemanların başına sayılar gelir:
+
+Ankara
+İstanbul
+Van
+Bu sayılar otomatik olarak çıkar. Bu çıktıyı veren kod şu şekildedir:
+
+<ol>
+  <li>Ankara</li>
+  <li>İstanbul</li>
+  <li>Van</li>
+</ol>
+<li> etiketi işe listeleme etiketidir. Listenin içindeki elemanlar <li> etiketi ile yazılır.
+
+
+
+<div> YAPISI TANIM
+    
+
+Div, html sayfasında bir bölüm oluşturmak istediğimizde kullanılır. 
+
+** <div> etiketi block etikettir yani bir genişlik değeri (width) vermediğimiz sürece satırı olduğu gibi kaplar ve yükseklik olarakta içerisinde bulunan öğelerin sahip olduğu yükseklik kadar bir yüksekliğe sahip olurlar.
+
+Örneğin; bir site tasarımını bölmelere ayıralım.
+
+** En dışarıda bir container isminde div oluşturduk.
+
+<div id="container">
+  <div id="header">
+
+  </div>
+
+  <div id="content">
+
+  </div>	
+</div>
+** Bu container div' ini oluşturmaktaki maksat tüm içerikleri aynı anda ortak bir şekilde yönetmek.
+
+#container {
+     width: 600px;
+     height: 300px;
+     background-color: blue;
+}
+
+#header {
+    width: 400px;
+    height: 100px;
+    background-color: red;
+}
+
+#content {
+    width: 500px;
+    height: 150px;
+    background-color: green;
+}
+** Div 'lere verdiğimiz genişlik değerleri px cinsinden olmak zorunda değildir. Yüzde olarak da değer verebiliriz. Örneğin tarayıcı genişliği o anda kaç ise <div>' in genişliğinin sayfanın %70'i kadar olmasını isteyebiliriz. 
+
+div {
+    width:70%;
+}
+** Eğer bir <div> için bir yükseklik değeri verirsek ve içinde bulunan elemanların yüksekliği div in yüksekliğini aşarsa bu durumda oluşacak overflow yani taşma için bazı seçeneklerimiz vardır.
+
+overflow : auto | hidden | scroll | visible
+
+** auto : eğer ki içeriklerin yüksekliği sabit değerli div in yüksekliğinden fazlaysa scrollbar çubukları yani dikey ve yatay kaydırma çubukları görünür hale gelecektir aksi halde görünmez.
+** hidden : bu durumda taşma olan kısım görünmez hale getirilir.
+** scrool : auto' nun aksine her zaman kaydırma çubukları görünür eğer taşma yoksa bile pasif bir şekilde kaydırma çubuklarını görebiliriz.
+** visible : taşmalar görünür olur.
+
+
+
+TEMEL FLASH MESSAGE YAPISI
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+ {% endif %}
+{% endwith %}
+
+<div class="alert alert-success" role="alert"> -> yapısındaki success yerine birden fazla secenek koyabilmek ve 
+oluşturdugumuz flashtan category kısmını çekebilmesi için category yapısını bir string içerisinde kullanabiliriz.
+<div class="alert alert-{{ category }}" role="alert"> 
+  
+
+SESSİON NEDİR ?
+
+
+Session(oturum)larda cookieler gibi kullanıcı bilgilerinin tutuldugu bölümlerdir.
+
+Sessionların cookielerden en önemli farkları sessionlar kullanıcının bilgisayarında değil sunucuda tutulurlar. Böylece daha güvenlidirler.
+
+Sessionlar belli bir sürede aktif olarak kalamazlar. Kullanıcı sayfayı kapattığı anda session sona erer. Ya da
+programcının bir çıkış bölümü yazması gerekmektedir. 
+
+
+
+DECORATOR ?
+
+Python'un decorator adı verilen gerçekten ilginç bir özelliği var.
+Bu, web uygulamaları için gerçekten çok işlevsellik sağlar. Flask'taki her görünüm bir işlev olduğundan, dekoratörler bir veya daha fazla işleve ek işlevler eklemek için kullanılabilir.
+route() dekoratörü, muhtemelen zaten kullanmış olduğunuz dekoratördür. Ancak kendi dekoratörünüzü uygulamak için kullanım durumları vardır.
+Örneğin, sadece oturum açmış kişiler tarafından kullanılması gereken bir görünümünüz olduğunu düşünün. Bir kullanıcı siteye giderse ve oturum açmadıysa, oturum açma sayfasına yönlendirilmelidir.
+Bu, bir dekoratörün mükemmel bir çözüm olduğu bir kullanım durumunun iyi bir örneğidir.
+
+
+
+CKEditor 5 Kullanım
+
+<script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script> -> Smart Visual Text Editor CKEditor 5
+<script>
+  ClassicEditor
+          .create( document.querySelector( '#content' ) )
+          .then( editor => {
+                  console.log( editor );
+          } )
+          .catch( error => {
+                  console.error( error );
+          } );
+</script> 
+
+-->
+
+
+
+
+
+
+
+

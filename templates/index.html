@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block body %} <!-- layouttaki her şeyi miras alarak  container sınıfının içindeki body bloğuna yazılmış gibi oluşur.-->
+<div class = "jumbotron text-center"> <!--jumbotron sınıfı bir giri dikdortgen alan oluşturur.(jumbotronun yanına text-center yazarsan yazıyı ortaya hizalar)(-left -right -center vb.)-->
+<h4> Yazılım Bloğuna Hoşgeldiniz.<h4>
+<h6> Bu blogta geliştiriciler olarak blog yazılarınızı paylaşabilirsiniz ve insanlara aradıklarını bulmada yardımcı olabilirsiniz. <h6>   
+</div>
+<meta http-equiv="refresh" content="60"> <!-- 60 saniyede bir sayfayı refresh atar. -->
+{% endblock body %}
